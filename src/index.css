@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* 4CAF50 3A8B3B  -------- buttons, headers, highlights*/
+/* FF7A00   --------- for focus */
+/* 1E88E5   -------- login  sign up */
+/* 000000 666666 333333 --------- text colors */
+/* E0E0E0   --------- borders */
+
+body{
+  background-color: #F7F8FA;
+}
+
+input{
+  background: #FFFFFF;
+  color: #333333;
+  border: none;
+}
+
+input:focus{
+  outline: none;
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
