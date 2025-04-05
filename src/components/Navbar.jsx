@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import settingIcon from "../assets/settingIcon.png";
 import logo from "../assets/logo.png";
 import user from "../assets/user.png";
+import { NavLink } from "react-router-dom";
 
 const Navbar = ({ income, setIncome, category, setCategory }) => {
   const [isSettingVisible, setIsSettingVisible] = useState(false);
@@ -32,12 +33,16 @@ const Navbar = ({ income, setIncome, category, setCategory }) => {
       <nav className="flex justify-between m-10  px-3 py-3">
         <img className="w-[100px]" src={logo} alt="" />
         <div className="flex gap-3 items-center">
-          <button className="hidden sm:block border border-blue-600 px-5 py-1 hover:bg-blue-600 hover:rounded-[50px] hover:text-white">
-            Login
-          </button>
-          <button className="hidden sm:block border border-blue-600 px-5 py-1 hover:bg-blue-600 hover:rounded-[50px] hover:text-white">
-            Sign Up
-          </button>
+          <NavLink to={"/"}>
+            <button className="hidden sm:block border bg-blue-600 px-5 py-1 hover:border-blue-600 hover:rounded-[50px] hover:text-black text-white hover:bg-transparent">
+              Home
+            </button>
+          </NavLink>
+          <NavLink to={"/register"}>
+            <button className="hidden sm:block border bg-blue-600 px-5 py-1 hover:border-blue-600 hover:rounded-[50px] hover:text-black text-white hover:bg-transparent">
+              Logout
+            </button>
+          </NavLink>
           <img
             className="w-6 sm:hidden h-6 text-gray-600 ml-10 cursor-pointer"
             src={user}
@@ -85,11 +90,6 @@ const Navbar = ({ income, setIncome, category, setCategory }) => {
             className="text-black-500 border-b py-2 px-2 hover:bg-gray-100"
           >
             Change Income
-          </button>
-          <button
-            className="text-black-500 border-b py-2 px-2 hover:bg-gray-100"
-          >
-            Log Out
           </button>
         </div>
       )}

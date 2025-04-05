@@ -11,6 +11,7 @@
 
 body{
   background-color: #F7F8FA;
+  overflow-x: hidden;
 }
 
 input{

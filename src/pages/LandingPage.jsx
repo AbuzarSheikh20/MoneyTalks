@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import user from "../assets/user.png";
+import Hero from "../components/Hero";
+import Features from "../components/Features";
+import HowItWorks from "../components/HowItWorks";
+import Testimonials from "../components/Testimonials";
+import CallToAction from "../components/CallToAction";
+import Form from "../components/Form";
 
-const LandingPage = ({ userName, isEmailVerified, onLogout }) => {
+const LandingPage = ({ isEmailVerified, onLogout }) => {
   const [isMenuIcon, setisMenuIcon] = useState(false);
   const toggleUserMenu = () => {
     setisMenuIcon((prev) => !prev);
-    setIsSettingVisible(false); // Close settings if user menu is opened
   };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
@@ -18,7 +24,7 @@ const LandingPage = ({ userName, isEmailVerified, onLogout }) => {
               className="bg-purple-600 text-white py-1 px-3 rounded-md"
               onClick={onLogout}
             >
-              Login
+              Logout
             </button>
           ) : (
             <>
@@ -28,12 +34,14 @@ const LandingPage = ({ userName, isEmailVerified, onLogout }) => {
               >
                 Verify Email
               </button>
-              <button
-                className="hidden sm:block border border-blue-600 px-5 py-1 hover:bg-blue-600 hover:rounded-[50px] hover:text-white"
-                onClick={onLogout}
-              >
-                Logout
-              </button>
+              <NavLink to={"/register"}>
+                <button
+                  className="hidden sm:block border border-blue-600 px-5 py-1 hover:bg-blue-600 hover:rounded-[50px] hover:text-white"
+                  onClick={onLogout}
+                >
+                  Sign in/up
+                </button>
+              </NavLink>
               <img
                 className="w-6 sm:hidden h-6 text-gray-600 ml-10 cursor-pointer"
                 src={user}
@@ -54,16 +62,14 @@ const LandingPage = ({ userName, isEmailVerified, onLogout }) => {
             </div>
           )}
         </div>
+
       </header>
-      <main className="flex-grow flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold">
-          Hey {userName} 👋 Welcome to our app!
-        </h1>
-        <br />
-        <p className="text-xl">
-          MoneyTalk is Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia numquam saepe est soluta debitis quae quos reprehenderit iusto excepturi maiores.
-        </p>
-      </main>
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <Testimonials />
+        <CallToAction />
+        <Form />
     </div>
   );
 };
