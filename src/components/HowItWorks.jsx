@@ -3,8 +3,7 @@ import Steps from "../components/Steps.jsx";
 import register from "../assets/register.png";
 import income from "../assets/income.png";
 import categories from "../assets/categories.png";
-import categories from "../assets/categories.png";
-import product from "../assets/product.png";
+import product from "../assets/Product.png";
 import review from "../assets/review.png";
 import manage from "../assets/manage.png";
 
