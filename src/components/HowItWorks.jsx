@@ -3,7 +3,7 @@ import Steps from "../components/Steps.jsx";
 import register from "../assets/register.png";
 import income from "../assets/income.png";
 import categories from "../assets/categories.png";
-import product from "../assets/Product.png";
+import Product from "../assets/Product.png";
 import review from "../assets/review.png";
 import manage from "../assets/manage.png";
 
@@ -13,7 +13,7 @@ const HowItWorks = () => {
     <img src={register} alt="Step 1 - image" />,
     <img src={income} alt="Step 2 - image" />,
     <img src={categories} alt="Step 3 - image" />,
-    <img src={product} alt="Step 4 - image" />,
+    <img src={Product} alt="Step 4 - image" />, 
     <img src={review} alt="Step 5 - image" />,
     <img src={manage} alt="Step 6 - image" />,
   ];
