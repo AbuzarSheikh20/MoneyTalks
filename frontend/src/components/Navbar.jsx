@@ -1,22 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import settingIcon from "../assets/settingIcon.png";
 import logo from "../assets/logo.png";
 import user from "../assets/user.png";
 import { NavLink } from "react-router-dom";
 
-const Navbar = ({ income, setIncome, category, setCategory }) => {
+const Navbar = ({ income, setIncome, category, setCategory, onAddCategory, onRemoveCategory, onChangeIncome, isLoggedIn, onLogout }) => {
   const [isSettingVisible, setIsSettingVisible] = useState(false);
   const [isMenuIcon, setisMenuIcon] = useState(false);
+  const settingsRef = useRef(null);
 
-  const addCategory = (newCategory) => {
-    setCategory([...category, newCategory]);
-    setIsSettingVisible(false);
-  };
-
-  const removeCategory = (categoryRemove) => {
-    setCategory(category.filter((c) => c !== categoryRemove));
-    setIsSettingVisible(false);
-  };
+  useEffect(() => {
+    if (!isSettingVisible) return;
+    const handleClickOutside = (event) => {
+      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+        setIsSettingVisible(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isSettingVisible]);
 
   const toggleSettings = () => {
     setIsSettingVisible((prev) => !prev);
@@ -30,7 +32,7 @@ const Navbar = ({ income, setIncome, category, setCategory }) => {
 
   return (
     <div className="shadow-md bg-white md:w-full">
-      <nav className="flex justify-between m-10  px-3 py-3">
+      <nav className="flex justify-between px-2 py-3">
         <img className="w-[100px]" src={logo} alt="" />
         <div className="flex gap-3 items-center">
           <NavLink to={"/"}>
@@ -61,32 +63,40 @@ const Navbar = ({ income, setIncome, category, setCategory }) => {
       {/* User Menu for Small Screens */}
       {isMenuIcon && (
         <div className="absolute py-5 px-5 border rounded-lg bg-white shadow-lg grid gap-2 right-[110px] top-[90px]">
-          <button className="text-black-500 border-b py-2 px-2 hover:bg-gray-100">
-            Login
-          </button>
-          <button className="text-black-500 border-b py-2 px-2 hover:bg-gray-100">
-            Sign Up
-          </button>
+          {isLoggedIn ? (
+            <button className="text-black-500 border-b py-2 px-2 hover:bg-gray-100" onClick={onLogout}>
+              Logout
+            </button>
+          ) : (
+            <>
+              <button className="text-black-500 border-b py-2 px-2 hover:bg-gray-100">
+                Login
+              </button>
+              <button className="text-black-500 border-b py-2 px-2 hover:bg-gray-100">
+                Sign Up
+              </button>
+            </>
+          )}
         </div>
       )}
 
       {/* Settings Menu */}
       {isSettingVisible && (
-        <div className="absolute py-10 px-5 border rounded-lg bg-white shadow-lg grid gap-2 right-[80px] top-[90px]">
+        <div ref={settingsRef} className="absolute py-10 px-5 border rounded-lg bg-white shadow-lg grid gap-2 right-[80px] top-[90px]">
           <button
-            onClick={() => addCategory(prompt("Enter new category:"))}
+            onClick={() => { setIsSettingVisible(false); onAddCategory && onAddCategory(); }}
             className="text-black-500 border-b py-2 px-2 hover:bg-gray-100"
           >
             Add Category
           </button>
           <button
-            onClick={() => removeCategory(prompt("Enter category to remove:"))}
+            onClick={() => { setIsSettingVisible(false); onRemoveCategory && onRemoveCategory(); }}
             className="text-black-500 border-b py-2 px-2 hover:bg-gray-100"
           >
             Remove Category
           </button>
           <button
-            onClick={() => setIncome(prompt("Enter new income:"))}
+            onClick={() => { setIsSettingVisible(false); onChangeIncome && onChangeIncome(); }}
             className="text-black-500 border-b py-2 px-2 hover:bg-gray-100"
           >
             Change Income
