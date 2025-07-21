@@ -37,7 +37,7 @@ const LandingPage = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("/api/auth/logout", {
+      await fetch(`${API_BASE_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -52,14 +52,14 @@ const LandingPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await fetch("/api/user/income-categories", { credentials: "include" });
+        const res = await fetch(`${API_BASE_URL}/user/income-categories`, { credentials: "include" });
         const data = await res.json();
         if (data.success) {
           if (!data.categories || data.categories.length === 0) {
             // Set default categories if none exist
             const defaultCategories = ["Food", "Transport", "Shopping", "Bills", "Other"];
             setCategory(defaultCategories);
-            await fetch("/api/user/income-categories", {
+            await fetch(`${API_BASE_URL}/user/income-categories`, {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
               credentials: "include",
@@ -81,7 +81,7 @@ const LandingPage = () => {
       setLoading(true);
       setError("");
       try {
-        let url = `/api/entries?date=${date}`;
+        let url = `${API_BASE_URL}/entries?date=${date}`;
         if (selectedCategory && selectedCategory !== "all") {
           url += `&category=${selectedCategory}`;
         }
@@ -115,7 +115,7 @@ const LandingPage = () => {
     if (!entry.price || !entry.category) return;
     setLoading(true);
     try {
-      const res = await fetch("/api/entries", {
+      const res = await fetch(`${API_BASE_URL}/entries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -138,7 +138,7 @@ const LandingPage = () => {
     setItems(items.map((item, i) => (i === index ? updatedEntry : item)));
     if (entry._id) {
       try {
-        await fetch(`/api/entries/${entry._id}`, {
+        await fetch(`${API_BASE_URL}/entries/${entry._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -158,7 +158,7 @@ const LandingPage = () => {
     const entry = items[index];
     if (entry._id) {
       try {
-        await fetch(`/api/entries/${entry._id}`, {
+        await fetch(`${API_BASE_URL}/entries/${entry._id}`, {
           method: "DELETE",
           credentials: "include",
         });
@@ -175,7 +175,7 @@ const LandingPage = () => {
   const handleChangeIncome = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/user/income-categories", {
+      const res = await fetch(`${API_BASE_URL}/user/income-categories`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -196,7 +196,7 @@ const LandingPage = () => {
     if (!newCategory.trim()) return;
     const updatedCategories = [...category, newCategory.trim()];
     try {
-      const res = await fetch("/api/user/income-categories", {
+      const res = await fetch(`${API_BASE_URL}/user/income-categories`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -217,7 +217,7 @@ const LandingPage = () => {
     if (!removeCategoryValue) return;
     const updatedCategories = category.filter((c) => c !== removeCategoryValue);
     try {
-      const res = await fetch("/api/user/income-categories", {
+      const res = await fetch(`${API_BASE_URL}/user/income-categories`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
